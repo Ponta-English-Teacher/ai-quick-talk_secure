@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎙️ AI Quick Talk (Beginner)</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .small {
+      padding: 4px 8px;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="title">🎙️ AI Quick Talk (Beginner)</h1>
+
+  <section id="setup-section" class="section-card">
+    <h2>Select a Place:</h2>
+    <div id="places" class="button-container"></div>
+    <button id="morePlaces" class="button secondary">More Places ➕</button>
+    <button id="prevPlaces" class="button secondary">Previous Places ⬅️</button>
+
+    <h2>Suggested Goals (日本語):</h2>
+    <div id="goals" class="button-container"></div>
+    <button id="moreGoals" class="button primary">More Goals ➕</button>
+    <button id="prevGoals" class="button primary">Previous Goals ⬅️</button>
+  </section>
+
+  <section id="dialogue-section" class="section-card" style="display:none;">
+    <h2>Dialogue</h2>
+    <div id="dialogue" class="dialogue-box"></div>
+    <button id="backToSetup" class="button secondary">Back to Setup</button>
+    <button id="playAll" class="button primary">▶️ Play Whole Dialogue</button>
+  </section>
+
+  <button id="toggleSound" class="button sound-toggle">🔊 Sound: ON</button>
+
+  <script src="app.js"></script>
+</body>
+</html>

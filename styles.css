@@ -1,0 +1,82 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f4f8;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+.title {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.section-card {
+  background: #ffffff;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.primary {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.secondary {
+  background-color: #2196F3;
+  color: white;
+}
+
+.sound-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #FF9800;
+  color: white;
+}
+
+.dialogue-box {
+  text-align: left;
+  margin: 20px;
+  padding: 10px;
+  background-color: #eef6f8;
+  border-radius: 8px;
+  min-height: 100px;
+}
+
+.dialogue-box p {
+  margin: 8px 0;
+}
+
+.dialogue-box p span.role {
+  font-weight: bold;
+  color: #333;
+}
+
+.dialogue-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  margin-left: 20px;
+}
+
