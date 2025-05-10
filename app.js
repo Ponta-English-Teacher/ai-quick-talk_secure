@@ -240,7 +240,7 @@ async function playOpenAITTS(text, voice = "nova") {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        prompt: `Generate TTS audio for: "${text}"`,
+        prompt: text,
         mode: "tts",
         voice: voice
       })
