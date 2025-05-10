@@ -15,12 +15,11 @@ const allPlaces = [
   "📚 Library", "📖 Bookstore", "🍞 Bakery", "🏥 Hospital", "🏦 Bank", "🏪 Convenience Store"
 ];
 
-// Device Detection
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 window.onload = () => {
   init();
-  displayPlaces(true);  // Force initial load
+  displayPlaces();  // Corrected: Don’t auto-select any place
 };
 
 function init() {
@@ -34,20 +33,22 @@ function init() {
     document.getElementById("playAll").onclick = playWholeDialogue;
   }
 
-  document.getElementById("morePlaces").onclick = () => showMorePlaces(true);
-  document.getElementById("prevPlaces").onclick = () => showPreviousPlaces(true);
+  document.getElementById("morePlaces").onclick = () => showMorePlaces(false);
+  document.getElementById("prevPlaces").onclick = () => showPreviousPlaces(false);
   document.getElementById("moreGoals").onclick = showMoreGoals;
   document.getElementById("prevGoals").onclick = showPreviousGoals;
 }
 
 function addPlayNextLineButton() {
   const dialogueSection = document.getElementById("dialogue-section");
-  const nextLineBtn = document.createElement("button");
-  nextLineBtn.id = "playNext";
-  nextLineBtn.className = "button primary";
-  nextLineBtn.innerText = "▶️ Play Next Line (Phone)";
-  nextLineBtn.onclick = playNextLine;
-  dialogueSection.appendChild(nextLineBtn);
+  if (!document.getElementById("playNext")) {
+    const nextLineBtn = document.createElement("button");
+    nextLineBtn.id = "playNext";
+    nextLineBtn.className = "button primary";
+    nextLineBtn.innerText = "▶️ Play Next Line (Phone)";
+    nextLineBtn.onclick = playNextLine;
+    dialogueSection.appendChild(nextLineBtn);
+  }
 }
 
 function toggleSound() {
@@ -85,21 +86,16 @@ function displayPlaces(loadGoals = false) {
 
   document.getElementById("morePlaces").style.display = end < allPlaces.length ? "inline-block" : "none";
   document.getElementById("prevPlaces").style.display = placePage > 0 ? "inline-block" : "none";
-
-  if (loadGoals && placesToShow.length > 0) {
-    const firstPlace = placesToShow[0].replace(/^[^a-zA-Z]+/, '').trim();
-    selectPlace(firstPlace);
-  }
 }
 
-function showMorePlaces(loadGoals = false) {
+function showMorePlaces() {
   placePage++;
-  displayPlaces(loadGoals);
+  displayPlaces();
 }
 
-function showPreviousPlaces(loadGoals = false) {
+function showPreviousPlaces() {
   if (placePage > 0) placePage--;
-  displayPlaces(loadGoals);
+  displayPlaces();
 }
 
 function selectPlace(place) {
