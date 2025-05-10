@@ -1,26 +1,46 @@
 export default async function handler(req, res) {
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-
-  const { prompt, max_tokens = 800 } = req.body;
+  const { prompt, mode = "chat", voice = "nova", max_tokens = 800 } = req.body;
 
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    let apiURL = "";
+    let body = {};
+
+    if (mode === "tts") {
+      apiURL = "https://api.openai.com/v1/audio/speech";
+      body = {
+        model: "tts-1",
+        input: prompt,
+        voice: voice
+      };
+    } else {
+      apiURL = "https://api.openai.com/v1/chat/completions";
+      body = {
+        model: "gpt-3.5-turbo",
+        messages: [{ role: "user", content: prompt }],
+        max_tokens
+      };
+    }
+
+    const response = await fetch(apiURL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${OPENAI_API_KEY}`
       },
-      body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: prompt }],
-        max_tokens
-      })
+      body: JSON.stringify(body)
     });
 
-    const data = await response.json();
-    res.status(200).json(data);
+    if (mode === "tts") {
+      const audioData = await response.arrayBuffer();
+      res.setHeader("Content-Type", "audio/mpeg");
+      return res.status(200).send(Buffer.from(audioData));
+    } else {
+      const data = await response.json();
+      return res.status(200).json(data);
+    }
   } catch (error) {
-    res.status(500).json({ error: "API call failed." });
+    console.error("API Error:", error);
+    return res.status(500).json({ error: "API call failed." });
   }
 }
-

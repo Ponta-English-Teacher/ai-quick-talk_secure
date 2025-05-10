@@ -234,15 +234,14 @@ async function playLine(index) {
 
 async function playOpenAITTS(text, voice = "nova") {
   try {
-    const response = await fetch("https://api.openai.com/v1/audio/speech", {
+    const response = await fetch("/api/openai", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${OPENAI_API_KEY}`
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "tts-1",
-        input: text,
+        prompt: `Generate TTS audio for: "${text}"`,
+        mode: "tts",
         voice: voice
       })
     });
