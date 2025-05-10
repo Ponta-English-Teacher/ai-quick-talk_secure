@@ -252,9 +252,13 @@ async function playOpenAITTS(text, voice = "nova") {
 
     return new Promise(resolve => {
       currentAudio.onended = resolve;
-      currentAudio.play();
+      currentAudio.play().catch(error => {
+        console.warn('Auto-play blocked. Waiting for user interaction.', error);
+        resolve(); // Skip waiting if blocked
+      });
     });
   } catch (error) {
     console.error("TTS API Error:", error);
   }
 }
+
